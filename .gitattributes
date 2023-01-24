@@ -1,2 +1,17 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+q1=df['mean area'].quantile(0.25)
+q3=df['mean area'].quantile(0.75)
+iqr=q3-q1
+print(iqr)
+lowerlimit=q1-(1.5*iqr)
+upperlimit=q3+(1.5*iqr)
+
+for i in df['mean area']:
+ if i>upperlimit or i<lowerlimit :
+ #df['mean area']=df['mean area'].replace(i,np.median(df['mean area']))
+ df['mean area']=df['mean area'].replace(i,0)
+sns.boxplot(df['mean area'])
+
+df.isnull().sum()
+
+df['label']=cancer.target
+df
